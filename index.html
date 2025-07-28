@@ -85,7 +85,6 @@
       color: #ccc;
     }
 
-    /* --- New Button Styles --- */
     .cta-button {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(90deg, #ff3c00, #e0da00, #00ffcc);
@@ -108,7 +107,6 @@
       box-shadow: 0 0 25px rgba(255, 107, 0, 0.5);
     }
 
-    /* --- Modal Styles --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -118,7 +116,7 @@
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      display: none; /* Initially hidden */
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
@@ -241,43 +239,34 @@
         font-style: italic;
     }
 
-    /* 📱 Mobile & tablet responsiveness */
+    /* Mobile & tablet responsiveness */
     @media (max-width: 768px) {
-      .brand-line1 {
-        font-size: 3.5rem;
-        letter-spacing: 2px;
-      }
-      .brand-line2 {
-        font-size: 1.2rem;
-        letter-spacing: 1px;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .container {
-        padding: 1rem;
-      }
+      .brand-line1 { font-size: 3.5rem; letter-spacing: 2px; }
+      .brand-line2 { font-size: 1.2rem; letter-spacing: 1px; }
+      .subtitle { font-size: 1rem; }
+      .container { padding: 1rem; }
+	  .cta-button {
+		  font-size: 0.9rem;
+		  padding: 10px 20px;
+		  margin-top: 2rem;
+		}
+      #thank-you-main { font-size: 2.5rem; }
+      #thank-you-sub { font-size: 1rem; }
     }
 
     @media (max-width: 480px) {
-      .brand-line1 {
-        font-size: 2.6rem;
-      }
-      .brand-line2 {
-        font-size: 1rem;
-      }
-      .subtitle {
-        font-size: 0.9rem;
-      }
-      .modal-content {
-        padding: 2rem 1.5rem;
-      }
-      .modal-content h2 {
-        font-size: 1.5rem;
-      }
-      .form-group {
-        flex-direction: column;
-      }
+      .brand-line1 { font-size: 2.6rem; }
+      .brand-line2 { font-size: 1rem; }
+      .subtitle { font-size: 0.9rem; }
+	  .cta-button {
+		  font-size: 0.85rem;
+		  padding: 10px 18px;
+		}
+      .modal-content { padding: 2rem 1.5rem; }
+      .modal-content h2 { font-size: 1.5rem; }
+      .form-group { flex-direction: column; }
+      #thank-you-main { font-size: 2rem; }
+      #thank-you-sub { font-size: 0.9rem; }
     }
   </style>
   
@@ -322,7 +311,7 @@
 
     // !!! IMPORTANT !!!
     // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbw1h4XuK5c0Bd3sbbAe_toFmVl_4lCuTmxlW7PnEdEARChY04fSOXlGfh-xmLmgES2jbw/exec';
+    const googleScriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
     // --- Element Selectors ---
     const notifyButton = document.getElementById('notify-button');
@@ -340,13 +329,12 @@
     const closeModal = () => notifyModal.classList.remove('active');
 
     const isValidEmail = (email) => {
-        // Simple regex for email validation
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
     };
 
     const handleFormSubmit = (e) => {
-        e.preventDefault(); // Prevent default page reload
+        e.preventDefault();
         const email = emailInput.value.trim();
 
         if (!isValidEmail(email)) {
@@ -354,14 +342,13 @@
             return;
         }
         
-        emailError.textContent = ''; // Clear error message
+        emailError.textContent = '';
         submitButton.disabled = true;
         submitButton.textContent = 'Submitting...';
 
         const formData = new FormData();
         formData.append('email', email);
         
-        // Send data to Google Apps Script
         fetch(googleScriptURL, { method: 'POST', body: formData })
             .then(response => response.json())
             .then(data => {
@@ -385,12 +372,12 @@
     closeModalButton.addEventListener('click', closeModal);
     emailForm.addEventListener('submit', handleFormSubmit);
 
-    // Close modal if user clicks on the overlay
     notifyModal.addEventListener('click', (e) => {
         if (e.target === notifyModal) {
             closeModal();
         }
     });
 </script>
+
 </body>
 </html>
