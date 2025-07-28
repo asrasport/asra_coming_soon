@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coming Soon | ASRA</title>
+  <link rel="preload" href="fonts/BankGothicMediumBT.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <style>
-	@font-face {
-	  font-family: 'BankGothic';
-	  src: url('./fonts/BankGothicMediumBT.ttf') format('truetype');
-	  font-weight: normal;
-	  font-style: normal;
-	}
+    @font-face {
+      font-family: 'BankGothic';
+      src: url('./fonts/BankGothicMediumBT.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
+    
     body {
       height: 100vh;
       display: flex;
@@ -28,8 +29,10 @@
       background-size: 600% 600%;
       animation: backgroundShift 10s ease infinite;
       color: #fff;
+      text-align: center;
+      padding: 1rem;
     }
-
+    
     @keyframes backgroundShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -37,10 +40,18 @@
     }
 
     .container {
-      text-align: center;
-      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
+    .logo {
+      width: 240px;
+      max-width: 80%;
+      margin-bottom: 2rem;
+    }
+    
     .brand-name {
       font-family: 'BankGothic', 'Arial Black', sans-serif;
       background: linear-gradient(90deg, #ff3c00, #fff200, #00ffcc);
@@ -50,6 +61,11 @@
       color: transparent;
       -webkit-text-fill-color: transparent;
       animation: shine 3s linear infinite;
+    }
+
+    @keyframes shine {
+      0% { background-position: 0%; }
+      100% { background-position: 200%; }
     }
 
     .brand-line1 {
@@ -63,85 +79,318 @@
       margin-top: 0.5rem;
     }
 
-    @keyframes shine {
-      0% { background-position: 0%; }
-      100% { background-position: 200%; }
-    }
-
     .subtitle {
       font-size: 1.5rem;
       margin-top: 1.5rem;
       color: #ccc;
     }
-	.brand-line1 {
-    font-size: 10rem;
-    letter-spacing: 4px;
-  }
 
-  .brand-line2 {
-    font-size: 3rem;
-    letter-spacing: 2px;
-    margin-top: 0.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.5rem;
-    margin-top: 1.5rem;
-    color: #ccc;
-  }
-
-  /* 📱 Mobile & tablet responsiveness */
-  @media (max-width: 768px) {
-    .brand-line1 {
-      font-size: 3.5rem;
-      letter-spacing: 2px;
-    }
-
-    .brand-line2 {
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
-
-    .subtitle {
+    /* --- New Button Styles --- */
+    .cta-button {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(90deg, #ff3c00, #e0da00, #00ffcc);
+      background-size: 200% 200%;
+      animation: shine 3s linear infinite;
+      color: #111;
+      border: none;
+      padding: 12px 24px;
       font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 2.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     }
 
-    .container {
-      padding: 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .brand-line1 {
-      font-size: 2.6rem;
+    .cta-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 107, 0, 0.5);
     }
 
-    .brand-line2 {
+    /* --- Modal Styles --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      display: none; /* Initially hidden */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: #1e1e1e;
+      padding: 2.5rem;
+      border-radius: 10px;
+      border: 1px solid #444;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      position: relative;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .close-button:hover {
+      color: #fff;
+    }
+
+    .modal-content h2 {
+      font-family: 'BankGothic', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #eee;
+    }
+
+    .email-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .email-input {
+      flex-grow: 1;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 5px;
+      padding: 12px;
+      color: #fff;
       font-size: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .email-input:focus {
+      outline: none;
+      border-color: #ff3c00;
+      box-shadow: 0 0 10px rgba(255, 60, 0, 0.5);
     }
 
-    .subtitle {
+    .submit-button {
+      background: linear-gradient(90deg, #ff3c00, #e0da00);
+      color: #111;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .submit-button:hover {
+      transform: scale(1.05);
+    }
+    
+    .submit-button:disabled {
+        background: #555;
+        cursor: not-allowed;
+    }
+
+    #email-error {
+      color: #ff5555;
       font-size: 0.9rem;
+      text-align: left;
+      height: 20px;
+      margin-top: 8px;
     }
-  }
+    
+    #thank-you-main {
+        font-family: 'BankGothic', 'Arial Black', sans-serif;
+        font-size: 3rem;
+        background: linear-gradient(90deg, #ff3c00, #fff200, #00ffcc);
+        background-size: 200%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shine 3s linear infinite;
+        margin-bottom: 0.5rem;
+    }
+
+    #thank-you-sub {
+        font-size: 1.2rem;
+        color: #ccc;
+        font-style: italic;
+    }
+
+    /* 📱 Mobile & tablet responsiveness */
+    @media (max-width: 768px) {
+      .brand-line1 {
+        font-size: 3.5rem;
+        letter-spacing: 2px;
+      }
+      .brand-line2 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-line1 {
+        font-size: 2.6rem;
+      }
+      .brand-line2 {
+        font-size: 1rem;
+      }
+      .subtitle {
+        font-size: 0.9rem;
+      }
+      .modal-content {
+        padding: 2rem 1.5rem;
+      }
+      .modal-content h2 {
+        font-size: 1.5rem;
+      }
+      .form-group {
+        flex-direction: column;
+      }
+    }
   </style>
+  
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon_dark.png" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="favicon_light.png" media="(prefers-color-scheme: light)">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#111111">
 </head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-LQTZKWVF75"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-LQTZKWVF75');
-</script>
-
 <body>
   <div class="container">
+    <img src="logo.png" alt="ASRA Logo" class="logo" />
     <div class="brand-name brand-line1">ASRA</div>
     <div class="brand-name brand-line2">SPORTSWEAR</div>
     <div class="subtitle">Unleashing Soon. Get Ready.</div>
+    <button class="cta-button" id="notify-button">Be the first one to know</button>
   </div>
+
+  <div class="modal-overlay" id="notify-modal">
+    <div class="modal-content">
+      <button class="close-button" id="close-modal">&times;</button>
+      <div id="form-container">
+        <h2>Join The Elite</h2>
+        <form class="email-form" id="email-form">
+          <div class="form-group">
+            <input type="email" id="email-input" class="email-input" placeholder="Enter your email address" required>
+            <button type="submit" class="submit-button" id="submit-email">Submit</button>
+          </div>
+          <div id="email-error"></div>
+        </form>
+      </div>
+      <div id="thank-you-container" style="display: none;">
+        <div id="thank-you-main">Thank you!</div>
+        <div id="thank-you-sub">Be your own weapon, Be Fierce</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    // --- JavaScript for Modal and Form Submission ---
+
+    // !!! IMPORTANT !!!
+    // REPLACE THIS URL WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
+    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbw1h4XuK5c0Bd3sbbAe_toFmVl_4lCuTmxlW7PnEdEARChY04fSOXlGfh-xmLmgES2jbw/exec';
+
+    // --- Element Selectors ---
+    const notifyButton = document.getElementById('notify-button');
+    const notifyModal = document.getElementById('notify-modal');
+    const closeModalButton = document.getElementById('close-modal');
+    const emailForm = document.getElementById('email-form');
+    const emailInput = document.getElementById('email-input');
+    const emailError = document.getElementById('email-error');
+    const submitButton = document.getElementById('submit-email');
+    const formContainer = document.getElementById('form-container');
+    const thankYouContainer = document.getElementById('thank-you-container');
+
+    // --- Functions ---
+    const openModal = () => notifyModal.classList.add('active');
+    const closeModal = () => notifyModal.classList.remove('active');
+
+    const isValidEmail = (email) => {
+        // Simple regex for email validation
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault(); // Prevent default page reload
+        const email = emailInput.value.trim();
+
+        if (!isValidEmail(email)) {
+            emailError.textContent = 'Please enter a valid email address.';
+            return;
+        }
+        
+        emailError.textContent = ''; // Clear error message
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
+        const formData = new FormData();
+        formData.append('email', email);
+        
+        // Send data to Google Apps Script
+        fetch(googleScriptURL, { method: 'POST', body: formData })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    formContainer.style.display = 'none';
+                    thankYouContainer.style.display = 'block';
+                } else {
+                    throw new Error('Submission failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                emailError.textContent = 'Submission failed. Please try again later.';
+                submitButton.disabled = false;
+                submitButton.textContent = 'Submit';
+            });
+    };
+
+    // --- Event Listeners ---
+    notifyButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+    emailForm.addEventListener('submit', handleFormSubmit);
+
+    // Close modal if user clicks on the overlay
+    notifyModal.addEventListener('click', (e) => {
+        if (e.target === notifyModal) {
+            closeModal();
+        }
+    });
+</script>
 </body>
 </html>
